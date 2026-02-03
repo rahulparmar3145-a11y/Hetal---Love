@@ -100,7 +100,7 @@ function typeText(text, callback){
   let i = 0;
   textEl.textcontent = "";
   let interval = setInterval(()=>{
-    textEl.innerText += text.charAt(i);
+    textEl.textcontent += text.charAt(i);
     i++;
     if(i >= text.length){
       clearInterval(interval);
