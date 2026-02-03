@@ -1,0 +1,63 @@
+<script>
+let messages = [
+  "Hi my beautiful wife Hetal 💖",
+  "I made this only for you",
+  "You are my safest place 🥹",
+  "My favourite person forever",
+  "I love you more than words ❤️",
+  "Happy to have you in my life Notankibaaz 🌸",
+  "Always yours, Hetal ❤️ — Rahul"
+];
+
+let index = 0;
+const textEl = document.getElementById("text");
+let started = false;
+
+function typeText(text, callback){
+  let i = 0;
+  textEl.textContent = "";
+  let interval = setInterval(()=>{
+    textEl.textContent += text.charAt(i);
+    i++;
+    if(i >= text.length){
+      clearInterval(interval);
+      if(callback) callback();
+    }
+  }, 60);
+}
+
+function playNext(){
+  if(index < messages.length){
+    typeText(messages[index], ()=>{
+      index++;
+      setTimeout(playNext, 1200);
+    });
+  }else{
+    document.getElementById("final").style.display = "flex";
+  }
+}
+
+setInterval(()=>{
+  let heart = document.createElement("div");
+  heart.className = "heart";
+  heart.textContent = "❤️";
+  heart.style.left = Math.random()*100 + "vw";
+  heart.style.fontSize = (14 + Math.random()*10) + "px";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(), 8000);
+}, 700);
+
+function startSurprise(){
+  if(started) return;
+  started = true;
+
+  playNext();
+
+  const music = document.getElementById("bgm");
+  music.volume = 0.5;
+  music.play().catch(()=>{});
+}
+
+// iPhone needs a tap
+document.body.addEventListener("click", startSurprise);
+</script>
